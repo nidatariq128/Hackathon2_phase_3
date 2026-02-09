@@ -74,6 +74,17 @@ class Settings(BaseSettings):
         description="Port to bind the API server",
     )
 
+    # Phase III: AI Chatbot Configuration
+    # Using OpenRouter - Get your key at: https://openrouter.ai/keys
+    OPENROUTER_API_KEY: str = Field(
+        default="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",
+        description="OpenRouter API key for AI chatbot functionality",
+    )
+    AI_MODEL: str = Field(
+        default="meta-llama/llama-3.1-8b-instruct:free",
+        description="AI model to use for chat (OpenRouter models)",
+    )
+
     @field_validator("DATABASE_URL")
     @classmethod
     def validate_database_url(cls, v: str) -> str:

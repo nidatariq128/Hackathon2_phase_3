@@ -7,3 +7,6 @@ pydantic==2.12.5
 pydantic-settings==2.1.0
 psycopg2-binary==2.9.9
 asyncpg==0.30.0
+
+# Phase III: AI Chatbot
+openai>=1.0.0
