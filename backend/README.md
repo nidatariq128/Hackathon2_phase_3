@@ -1,6 +1,16 @@
-# Todo API - Backend
+---
+title: TaskFlow AI Backend
+emoji: 🤖
+colorFrom: amber
+colorTo: orange
+sdk: docker
+pinned: false
+license: mit
+---
 
-Phase II - Todo Full-Stack Web Application Backend
+# TaskFlow AI Backend
+
+Phase III - AI-Powered Todo Full-Stack Web Application Backend
 
 ## Tech Stack
 

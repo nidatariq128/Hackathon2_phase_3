@@ -70,8 +70,8 @@ class Settings(BaseSettings):
         description="Host to bind the API server",
     )
     API_PORT: int = Field(
-        default=8000,
-        description="Port to bind the API server",
+        default=7860,
+        description="Port to bind the API server (7860 for Hugging Face)",
     )
 
     # Phase III: AI Chatbot Configuration
