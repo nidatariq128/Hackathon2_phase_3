@@ -1,8 +1,8 @@
 ---
 title: TaskFlow AI Backend
 emoji: 🤖
-colorFrom: amber
-colorTo: orange
+colorFrom: yellow
+colorTo: red
 sdk: docker
 pinned: false
 license: mit
