@@ -115,7 +115,7 @@ class TodoAgent:
             assistant_message = response.choices[0].message
 
             # Debug: print response structure
-            print(f"DEBUG: assistant_message = {assistant_message}")
+            print(f"DEBUG: assistant_message = {str(assistant_message).encode('utf-8', errors='replace').decode('utf-8')}")
             print(f"DEBUG: tool_calls = {assistant_message.tool_calls}")
 
             # Process tool calls if any

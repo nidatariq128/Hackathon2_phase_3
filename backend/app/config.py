@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     """
 
     model_config = SettingsConfigDict(
-        env_file=None,  # Don't load from file, use environment variables only
+        env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=True,
         extra="ignore",
@@ -70,18 +70,18 @@ class Settings(BaseSettings):
         description="Host to bind the API server",
     )
     API_PORT: int = Field(
-        default=7860,
-        description="Port to bind the API server (7860 for Hugging Face)",
+        default=8000,
+        description="Port to bind the API server",
     )
 
     # Phase III: AI Chatbot Configuration
     # Using OpenRouter - Get your key at: https://openrouter.ai/keys
     OPENROUTER_API_KEY: str = Field(
-        default="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",
+        default="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",
         description="OpenRouter API key for AI chatbot functionality",
     )
     AI_MODEL: str = Field(
-        default="meta-llama/llama-3.1-8b-instruct:free",
+        default="nvidia/nemotron-3-nano-30b-a3b:free",
         description="AI model to use for chat (OpenRouter models)",
     )
 

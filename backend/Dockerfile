@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+# Create non-root user (required by Hugging Face Spaces)
+RUN useradd -m -u 1000 user
+
 WORKDIR /app
 
 # Install system dependencies
@@ -13,7 +16,10 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY . .
+COPY --chown=user . .
+
+# Switch to non-root user
+USER user
 
 # Expose port 7860 (Hugging Face default)
 EXPOSE 7860

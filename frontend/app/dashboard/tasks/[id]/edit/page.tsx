@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { useAuth } from "@/lib/auth/auth-context";
@@ -10,10 +10,11 @@ import { Spinner } from "@/components/ui/spinner";
 import type { Task } from "@/lib/types/task";
 
 interface EditTaskPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function EditTaskPage({ params }: EditTaskPageProps) {
+  const { id } = use(params);
   const { user } = useAuth();
   const [task, setTask] = useState<Task | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function EditTaskPage({ params }: EditTaskPageProps) {
     const loadTask = async () => {
       try {
         setIsLoading(true);
-        const data = await getTask(user.id, parseInt(params.id));
+        const data = await getTask(user.id, parseInt(id));
         setTask(data);
       } catch (err: any) {
         setError(err.message || "Failed to load task");
@@ -35,7 +36,7 @@ export default function EditTaskPage({ params }: EditTaskPageProps) {
     };
 
     loadTask();
-  }, [user, params.id]);
+  }, [user, id]);
 
   if (!user) {
     return null; // Layout will handle redirect

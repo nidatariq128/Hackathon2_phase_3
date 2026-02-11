@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, Edit, Trash2 } from "lucide-react";
@@ -15,10 +15,11 @@ import { ToggleCompleteButton } from "./ToggleCompleteButton";
 import type { Task } from "@/lib/types/task";
 
 interface TaskDetailPageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 export default function TaskDetailPage({ params }: TaskDetailPageProps) {
+  const { id } = use(params);
   const router = useRouter();
   const { user } = useAuth();
   const [task, setTask] = useState<Task | null>(null);
@@ -31,7 +32,7 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
     const loadTask = async () => {
       try {
         setIsLoading(true);
-        const data = await getTask(user.id, parseInt(params.id));
+        const data = await getTask(user.id, parseInt(id));
         setTask(data);
       } catch (err: any) {
         setError(err.message || "Failed to load task");
@@ -41,7 +42,7 @@ export default function TaskDetailPage({ params }: TaskDetailPageProps) {
     };
 
     loadTask();
-  }, [user, params.id]);
+  }, [user, id]);
 
   if (!user) {
     return null; // Layout will handle redirect
