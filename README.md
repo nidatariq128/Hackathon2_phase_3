@@ -1,57 +1,75 @@
-# 📝 Todo App - Full-Stack Task Manager
+# TaskFlow AI - Full-Stack Task Manager with AI Assistant
 
-A modern, full-stack Todo application built with Next.js, FastAPI, and PostgreSQL. Features a beautiful gradient UI design with glassmorphism effects.
+A modern, full-stack Todo application built with Next.js 16, FastAPI, and PostgreSQL. Features AI-powered chat assistant, beautiful gradient UI with glassmorphism effects, and full CRUD task management.
 
-## ✨ Features
+## Live Demo
 
-- 🔐 **JWT Authentication** - Secure user authentication
-- ✅ **Task Management** - Create, read, update, delete tasks
-- 🎨 **Modern UI** - Beautiful gradient design with smooth animations
-- 🔄 **Real-time Updates** - Optimistic UI updates
-- 📱 **Responsive Design** - Works on all devices
-- 🌈 **Glassmorphism** - Frosted glass effects throughout
-- 🎯 **Task Filters** - Filter by All, Pending, or Completed
+- **Frontend (Vercel):** [https://frontend-theta-five-67.vercel.app](https://frontend-theta-five-67.vercel.app)
+- **Backend API (Hugging Face):** [https://nidatariq-hachathon2-phase3.hf.space](https://nidatariq-hachathon2-phase3.hf.space)
+- **API Docs:** [https://nidatariq-hachathon2-phase3.hf.space/docs](https://nidatariq-hachathon2-phase3.hf.space/docs)
 
-## 🛠️ Tech Stack
+## Features
+
+- **JWT Authentication** - Secure user authentication with HS256 signed tokens
+- **Task Management** - Full CRUD operations (create, read, update, delete)
+- **AI Chat Assistant** - AI-powered task management assistant via OpenRouter (Phase III)
+- **Modern UI** - Beautiful gradient design with smooth animations
+- **Glassmorphism** - Frosted glass effects throughout the interface
+- **Task Filters** - Filter by All, Pending, or Completed status
+- **Responsive Design** - Works on all devices
+- **Real-time Updates** - Optimistic UI updates
+
+## Tech Stack
 
 ### Frontend
-- **Next.js 16** - React framework with App Router
-- **TypeScript** - Type-safe JavaScript
+- **Next.js 16** - React framework with App Router & Turbopack
+- **TypeScript** - Type-safe development
 - **Tailwind CSS** - Utility-first CSS framework
-- **Axios** - HTTP client
+- **Axios** - HTTP client for API communication
 - **Jose** - JWT token handling
-- **Lucide React** - Beautiful icons
+- **Lucide React** - Icon library
 
 ### Backend
 - **FastAPI** - Modern Python web framework
-- **SQLModel** - SQL database ORM
-- **PostgreSQL** - Database (Neon)
-- **Python-Jose** - JWT token generation/validation
+- **SQLModel** - SQL database ORM with Pydantic validation
+- **PostgreSQL (Neon)** - Serverless PostgreSQL database
+- **PyJWT / Python-Jose** - JWT token generation and verification
+- **OpenAI SDK** - AI chat via OpenRouter API
 - **Uvicorn** - ASGI server
 
-## 🚀 Getting Started
+### Deployment
+- **Vercel** - Frontend hosting
+- **Hugging Face Spaces** - Backend hosting (Docker)
+- **Neon** - Serverless PostgreSQL database
+
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
-- Python 3.10+
-- PostgreSQL database (or Neon account)
+- Python 3.11+
+- PostgreSQL database (or [Neon](https://neon.tech) account)
 
 ### Installation
 
 1. **Clone the repository**
 ```bash
-git clone <your-repo-url>
-cd phase2
+git clone https://github.com/nidatariq128/Hackathon2_phase_3.git
+cd Hackathon2_phase_3
 ```
 
 2. **Set up environment variables**
 ```bash
-# Copy example env file
+# Root-level backend env
 cp .env.example .env
+# Edit .env with your DATABASE_URL and BETTER_AUTH_SECRET
 
-# Edit .env with your credentials
-# - Add your PostgreSQL DATABASE_URL
-# - Generate a secure BETTER_AUTH_SECRET
+# Backend env
+cp backend/.env.example backend/.env
+# Edit with your credentials
+
+# Frontend env
+cp frontend/.env.local.example frontend/.env.local
+# Set NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 3. **Install Frontend Dependencies**
@@ -66,12 +84,12 @@ cd ../backend
 pip install -r requirements.txt
 ```
 
-### Running the Application
+### Running Locally
 
 **Start Backend (Terminal 1):**
 ```bash
 cd backend
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python app.py
 ```
 
 **Start Frontend (Terminal 2):**
@@ -83,99 +101,127 @@ npm run dev
 **Access the app:**
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
-- API Docs: http://localhost:8000/docs
+- API Docs (Swagger): http://localhost:8000/docs
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-phase2/
-├── frontend/              # Next.js frontend
-│   ├── app/              # App router pages
-│   ├── components/       # React components
-│   ├── lib/             # Utilities and API clients
-│   └── package.json
-├── backend/              # FastAPI backend
-│   ├── app/             # Application code
-│   │   ├── api/        # API routes
-│   │   ├── models/     # Database models
-│   │   └── main.py     # App entry point
-│   └── requirements.txt
-├── specs/               # Feature specifications
-├── history/             # Development history
+Hackathon2_phase_3/
+├── frontend/                # Next.js 16 frontend
+│   ├── app/                # App Router pages
+│   │   ├── page.tsx        # Login page
+│   │   ├── signup/         # Signup page
+│   │   └── dashboard/      # Dashboard (tasks, chat)
+│   ├── components/         # React components
+│   │   ├── tasks/          # Task CRUD components
+│   │   ├── chat/           # AI chat components
+│   │   └── ui/             # Shared UI components
+│   ├── lib/                # Utilities
+│   │   ├── api/            # API client & endpoints
+│   │   ├── auth/           # Auth context & JWT
+│   │   └── types/          # TypeScript types
+│   └── vercel.json         # Vercel deployment config
+├── backend/                 # FastAPI backend
+│   ├── app/
+│   │   ├── main.py         # FastAPI app entry point
+│   │   ├── config.py       # Pydantic settings
+│   │   ├── database.py     # Database connection
+│   │   ├── models/         # SQLModel models
+│   │   ├── routes/         # API route handlers
+│   │   ├── auth/           # JWT auth & dependencies
+│   │   ├── agents/         # AI chat agent (Phase III)
+│   │   └── utils/          # Exception handlers
+│   ├── Dockerfile          # HF Spaces Docker config
+│   ├── requirements.txt    # Python dependencies
+│   └── app.py              # Uvicorn entry point
+├── specs/                   # Feature specifications
+├── history/                 # Development history
 └── README.md
 ```
 
-## 🎨 UI Features
+## API Endpoints
 
-- **Gradient Theme** - Blue to purple gradient throughout
-- **Glassmorphism Cards** - Frosted glass effect with backdrop blur
-- **Smooth Animations** - Hover effects and transitions
-- **Custom Checkboxes** - Circular gradient checkboxes
-- **Status Badges** - Color-coded task status
-- **Responsive Layout** - Mobile-friendly design
-
-## 🔐 Authentication
-
-The app uses JWT (JSON Web Tokens) for authentication:
-- Tokens are signed with HS256 algorithm
-- Stored in browser localStorage
-- Automatically injected in API requests
-- 7-day expiration
-
-## 📝 API Endpoints
-
-### Authentication
-- `POST /auth/login` - User login
-- `POST /auth/register` - User registration
+### Health
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/health` | Health check |
 
 ### Tasks
-- `GET /api/{user_id}/tasks` - List all tasks
-- `POST /api/{user_id}/tasks` - Create task
-- `GET /api/{user_id}/tasks/{task_id}` - Get task details
-- `PUT /api/{user_id}/tasks/{task_id}` - Update task
-- `DELETE /api/{user_id}/tasks/{task_id}` - Delete task
-- `PATCH /api/{user_id}/tasks/{task_id}/complete` - Toggle completion
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/{user_id}/tasks` | List all tasks |
+| POST | `/api/{user_id}/tasks` | Create a task |
+| GET | `/api/{user_id}/tasks/{id}` | Get task details |
+| PUT | `/api/{user_id}/tasks/{id}` | Update a task |
+| DELETE | `/api/{user_id}/tasks/{id}` | Delete a task |
+| PATCH | `/api/{user_id}/tasks/{id}/complete` | Toggle completion |
 
-## 🧪 Testing
+### AI Chat (Phase III)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/{user_id}/chat` | Send message to AI assistant |
 
-### Backend Tests
-```bash
-cd backend
-pytest tests/ -v
+All `/api/*` endpoints require a valid JWT token:
+```
+Authorization: Bearer <jwt_token>
 ```
 
-### Frontend Tests
+## Authentication
+
+The app uses JWT (JSON Web Tokens) for authentication:
+- Tokens signed with HS256 algorithm
+- Shared secret between frontend and backend
+- Stored in browser localStorage
+- Automatically injected in API requests via Axios interceptor
+- 7-day expiration
+
+## Deployment
+
+### Frontend (Vercel)
+1. Push to GitHub
+2. Import project in Vercel (select `frontend/` directory)
+3. Set environment variable: `NEXT_PUBLIC_API_URL=https://nidatariq-hachathon2-phase3.hf.space`
+4. Deploy
+
+### Backend (Hugging Face Spaces)
+1. Create a new Docker Space on Hugging Face
+2. Push backend code to the Space repo
+3. Set Secrets: `DATABASE_URL`, `BETTER_AUTH_SECRET`, `OPENROUTER_API_KEY`
+4. Space auto-builds and deploys on port 7860
+
+## Testing
+
 ```bash
+# Backend tests
+cd backend
+pytest tests/ -v
+
+# Frontend
 cd frontend
 npm test
 ```
 
-## 🌐 Deployment
+## Environment Variables
 
-### Frontend (Vercel)
-1. Push to GitHub
-2. Import project in Vercel
-3. Set environment variables
-4. Deploy
+### Backend
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `BETTER_AUTH_SECRET` | JWT signing secret (min 32 chars) |
+| `OPENROUTER_API_KEY` | OpenRouter API key for AI chat |
+| `AI_MODEL` | AI model (default: `nvidia/nemotron-3-nano-30b-a3b:free`) |
+| `CORS_ORIGINS` | Allowed CORS origins (JSON array) |
+| `API_PORT` | Server port (default: 8000) |
 
-### Backend (Railway/Render)
-1. Push to GitHub
-2. Create new service
-3. Set environment variables
-4. Deploy
+### Frontend
+| Variable | Description |
+|----------|-------------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL |
 
-## 📄 License
+## License
 
 MIT License - feel free to use this project for learning or production.
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📧 Contact
-
-For questions or feedback, please open an issue on GitHub.
-
 ---
 
-Built with ❤️ using Next.js and FastAPI
+Built with Next.js, FastAPI, and Neon PostgreSQL
